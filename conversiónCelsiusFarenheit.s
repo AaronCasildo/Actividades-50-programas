@@ -1,5 +1,5 @@
 // Programa: conversion_celsius_fahrenheit.s
-// Autor: [Tu Nombre]
+// Autor: Aaron Casildo Rubalcava
 // Descripción: Convierte una temperatura de Celsius a Fahrenheit y la imprime como un entero.
 // Entrada: La temperatura en grados Celsius, ingresada por el usuario.
 // Salida: La temperatura convertida en grados Fahrenheit.
