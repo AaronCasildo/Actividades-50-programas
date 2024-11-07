@@ -1,5 +1,5 @@
 // Programa: fibonacci.s
-// Autor: Claude Assistant
+// Autor: Aaron Casildo Rubalcava
 // Descripción: Genera y muestra los primeros 8 números de la serie de Fibonacci
 // Entrada: Ninguna
 // Salida: Los primeros 8 números de la serie de Fibonacci
