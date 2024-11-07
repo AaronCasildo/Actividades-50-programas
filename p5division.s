@@ -1,5 +1,5 @@
 // Programa: division.s
-// Autor: Fernando
+// Autor: Aaron Casildo Rubalcava
 // Descripción: Realiza la división de dos números enteros ingresados por el usuario
 // Entrada: Dos números enteros ingresados por consola
 // Salida: El resultado de la división de los dos números o mensaje de error si es división por cero
