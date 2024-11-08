@@ -1,5 +1,5 @@
 // Programa: busqueda_binaria.s
-// Autor: Claude Assistant
+// Autor: Aaron Casildo Rubalcava
 // Descripción: Realiza una búsqueda binaria de un número en un arreglo ordenado
 // Entrada: Arreglo ordenado predefinido en .data y número a buscar
 // Salida: Posición del número si se encuentra, o mensaje si no está
