@@ -1,5 +1,5 @@
 // Programa: minimo.s
-// Autor: Claude Assistant
+// Autor: Aaron Casildo Rubalcava
 // Descripción: Encuentra el número mínimo en un arreglo
 // Entrada: Arreglo predefinido en .data
 // Salida: El valor mínimo encontrado en el arreglo
