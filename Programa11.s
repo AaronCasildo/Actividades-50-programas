@@ -1,5 +1,6 @@
 // Programa: palindromo.s
-// Autor: Claude Assistant
+// Autor: Aaron Casildo Rubalcava
+
 // Descripción: Verifica si una cadena es palíndromo, mostrando primero la frase
 // Entrada: Cadena predefinida en .data
 // Salida: La frase y mensaje indicando si es palíndromo o no
