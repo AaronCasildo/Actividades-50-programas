@@ -1,5 +1,5 @@
 // Programa: maximo.s
-// Autor: Claude Assistant
+// Autor: Aaron Casildo Rubalcava
 // Descripción: Encuentra el número máximo en un arreglo
 // Entrada: Arreglo predefinido en .data
 // Salida: El valor máximo encontrado en el arreglo
