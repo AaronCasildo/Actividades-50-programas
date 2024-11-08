@@ -1,5 +1,5 @@
 // Programa: busqueda_lineal.s
-// Autor: Claude Assistant
+// Autor: Aaron Casildo Rubalcava
 // Descripción: Realiza una búsqueda lineal de un número en un arreglo
 // Entrada: Arreglo predefinido en .data y número a buscar
 // Salida: Posición del número si se encuentra, o mensaje si no está
