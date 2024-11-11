@@ -1,87 +1,65 @@
-// Programa: suma_matrices.s
-// Descripción: Realiza la suma de dos matrices 3x3
-// Entrada: Matrices predefinidas en .data
-// Salida: Matriz resultante y visualización del proceso
-// Autor: Casildo Rubalcava Aaron 
+/***********************************************************************
+* Programa: Suma de Matrices 3x3 en ARM64 Assembly
+* Autor: Aaron Casildo Rubalcava
+* Descripción: Implementa la suma de dos matrices 3x3 utilizando ARM64 Assembly.
+*              El programa imprime las matrices de entrada, realiza la suma
+*              de las mismas elemento por elemento y luego muestra la matriz 
+*              resultado. 
+*              Este código está diseñado para ejecutarse en una plataforma 
+*              compatible con ARM64.
+*
+* Compilación:
+*    as -o suma_matrices.o suma_matrices.s
+*    gcc -o suma_matrices suma_matrices.o -no-pie
+*
+* Ejecución:
+*    ./suma_matrices
+*
+* Traducción a C (para referencia):
+* ----------------------------------------------------
+* #include <stdio.h>
+* 
+* void imprimir_matriz(long matriz[], long dim) {
+*     for (long i = 0; i < dim * dim; i++) {
+*         printf("%3ld ", matriz[i]);
+*         if ((i + 1) % dim == 0) {
+*             printf("\n");
+*         }
+*     }
+* }
+* 
+* void sumar_matrices(long matriz1[], long matriz2[], long resultado[], long dim) {
+*     for (long i = 0; i < dim * dim; i++) {
+*         resultado[i] = matriz1[i] + matriz2[i];
+*     }
+* }
+* 
+* int main() {
+*     long matriz1[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+*     long matriz2[9] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+*     long resultado[9];
+*     long dim = 3;
+*     
+*     printf("Suma de Matrices 3x3\n");
+*     
+*     printf("Matriz 1:\n");
+*     imprimir_matriz(matriz1, dim);
+*     
+*     printf("Matriz 2:\n");
+*     imprimir_matriz(matriz2, dim);
+*     
+*     sumar_matrices(matriz1, matriz2, resultado, dim);
+*     
+*     printf("Matriz Resultado:\n");
+*     imprimir_matriz(resultado, dim);
+*     
+*     return 0;
+* }
+*
+* Link de grabación asciinema:
+* https://asciinema.org/a/6TOROZfYZLXZpo6FapHQOpKDZ
+***********************************************************************/
 
-//Código del programa en c
-// #include <iostream>
-// #include <iomanip>
-//
-// // Dimensión de la matriz
-// const int DIM = 3;
-//
-// // Definición de las matrices de entrada
-// long matriz1[DIM][DIM] = {
-//     {1, 2, 3},
-//     {4, 5, 6},
-//     {7, 8, 9}
-// };
-//
-// long matriz2[DIM][DIM] = {
-//     {9, 8, 7},
-//     {6, 5, 4},
-//     {3, 2, 1}
-// };
-//
-// long resultado[DIM][DIM] = {0}; // Espacio para matriz resultado
-//
-// // Mensajes para la salida
-// const char* msg_titulo = "\nSuma de Matrices 3x3\n";
-// const char* msg_mat1 = "\nMatriz 1:\n";
-// const char* msg_mat2 = "\nMatriz 2:\n";
-// const char* msg_res = "\nMatriz Resultado:\n";
-//
-// // Declaración de funciones
-// void sumar_matrices();
-// void imprimir_matriz(const long matriz[DIM][DIM]);
-//
-// int main() {
-//     // Imprimir título
-//     std::cout << msg_titulo;
-//
-//     // Mostrar matriz 1
-//     std::cout << msg_mat1;
-//     imprimir_matriz(matriz1);
-//
-//     // Mostrar matriz 2
-//     std::cout << msg_mat2;
-//     imprimir_matriz(matriz2);
-//
-//     // Realizar la suma de matrices
-//     sumar_matrices();
-//
-//     // Mostrar resultado
-//     std::cout << msg_res;
-//     imprimir_matriz(resultado);
-//
-//     return 0;
-// }
-//
-// //---------------------------------------------------------------
-// // Función para sumar las matrices
-// //---------------------------------------------------------------
-// void sumar_matrices() {
-//     for (int i = 0; i < DIM; ++i) {                // mov x19, #0 y cmp x19, x21
-//         for (int j = 0; j < DIM; ++j) {            // ldr x20, =dim y mul x21, x20, x20
-//             resultado[i][j] = matriz1[i][j] + matriz2[i][j];  // add x24, x24, x25
-//         }
-//     }
-// }
-//
-// //---------------------------------------------------------------
-// // Función para imprimir una matriz
-// //---------------------------------------------------------------
-// void imprimir_matriz(const long matriz[DIM][DIM]) {
-//     for (int i = 0; i < DIM; ++i) {                // mov x19, #0, iteración de filas
-//         for (int j = 0; j < DIM; ++j) {            // cmp x19, x21 para recorrer columnas
-//             std::cout << std::setw(3) << matriz[i][j] << " "; // ldr x0, =msg_elem y bl printf
-//         }
-//         std::cout << "\n";                         // ldr x0, =newline y bl printf
-//     }
-// }
-
-//Inicio del programa en assembly
 .data
     // Definición de las matrices de entrada
     matriz1:    .quad   1, 2, 3,     // Primera matriz 3x3
