@@ -1,8 +1,62 @@
-// Programa: ordenamiento_burbuja.s
-// Autor: Aaron Casildo
-// Descripción: Realiza un ordenamiento burbuja de un arreglo
-// Entrada: Arreglo predefinido en .data
-// Salida: Arreglo ordenado y pasos del proceso
+/***********************************************************************
+* Programa: Ordenación de un Arreglo con el Algoritmo de Bubble Sort
+* Autor: Aaron Casildo Rubalcava
+* Descripción: Implementa el algoritmo de Bubble Sort en un arreglo desordenado
+*              e imprime el estado del arreglo en cada paso. Se intercambian
+*              elementos cuando están desordenados y se repite el proceso
+*              hasta que el arreglo esté completamente ordenado.
+* 
+* Compilación:
+*    as -o bubble_sort.o bubble_sort.s
+*    gcc -o bubble_sort bubble_sort.o -no-pie
+*
+* Ejecución:
+*    ./bubble_sort
+*
+* Traducción a C (para referencia):
+* ----------------------------------------------------
+* #include <stdio.h>
+* 
+* void imprimir_arreglo(long arreglo[], long longitud) {
+*     for (long i = 0; i < longitud; i++) {
+*         printf("%ld ", arreglo[i]);
+*     }
+*     printf("\n");
+* }
+* 
+* int main() {
+*     long arreglo[] = {45, 23, 11, 15, 6, 18, 7, 3, 12, 9};
+*     long longitud = 10;
+*     long paso = 1;
+* 
+*     // Imprimir arreglo original
+*     printf("Arreglo original: ");
+*     imprimir_arreglo(arreglo, longitud);
+* 
+*     // Algoritmo Bubble Sort
+*     for (long i = 0; i < longitud - 1; i++) {
+*         printf("Paso %ld: ", paso++);
+*         for (long j = 0; j < longitud - 1 - i; j++) {
+*             if (arreglo[j] > arreglo[j + 1]) {
+*                 printf("Intercambiando posiciones %ld y %ld (%ld <-> %ld)\n", j, j + 1, arreglo[j], arreglo[j + 1]);
+*                 long temp = arreglo[j];
+*                 arreglo[j] = arreglo[j + 1];
+*                 arreglo[j + 1] = temp;
+*             }
+*         }
+*         imprimir_arreglo(arreglo, longitud);
+*     }
+* 
+*     // Imprimir arreglo final
+*     printf("Arreglo ordenado: ");
+*     imprimir_arreglo(arreglo, longitud);
+* 
+*     return 0;
+* }
+*
+* Link de grabación asciinema:
+* https://asciinema.org/a/sxGvzFSeG2b1MZ70XPjvCg3xR
+***********************************************************************/
 
 .data
     arreglo:    .quad   45, 23, 11, 15, 6, 18, 7, 3, 12, 9  // Arreglo desordenado
