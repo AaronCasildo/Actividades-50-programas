@@ -16,15 +16,15 @@
 * ----------------------------------------------------
 * #include <stdio.h>
 * #include <ctype.h>
-*int isAlpha(char c) {
+* int isAlpha(char c) {
 *    /* Verifica si el carácter es alfabético (letra) */
 *    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
-*}
-*char toLower(char c) {
+* }
+* char toLower(char c) {
 *    /* Convierte el carácter a minúscula si es mayúscula */
 *    return (c >= 'A' && c <= 'Z') ? c + 32 : c;
-*}
-*int main() {
+* }
+* int main() {
 *    char cadena[] = "anita lava la tina";  /* Cadena a verificar */
 *    char *start = cadena;                  /* Puntero al inicio de la cadena */
 *    char *end = cadena;                    /* Puntero al final de la cadena */
@@ -57,7 +57,7 @@
 *    /* Si el bucle termina, es un palíndromo */
 *    printf("Es palíndromo\n");
 *    return 0;
-*}
+* }
 *
 * Link de grabación asciinema:
 * https://asciinema.org/a/SJHvlZ8SEgtzgGA8kxBhwpELs
