@@ -1,10 +1,13 @@
 /***********************************************************************
-* Programa: Verificar si una cadena es palíndromo
+* Programa: Verificación de Palíndromo en ARM64 Assembly
 * Autor: Aaron Casildo Rubalcava
-* Descripción: El programa verifica si la cadena "anita lava la tina" 
-*              es un palíndromo, considerando solo los caracteres alfabéticos
-*              y sin importar si son mayúsculas o minúsculas.
-*
+* Descripción: Solicita una cadena de texto al usuario y verifica si
+*              es un palíndromo, ignorando espacios y caracteres no 
+*              alfabéticos. Si es palíndromo, muestra un mensaje indicando
+*              que la cadena es un palíndromo, de lo contrario, muestra
+*              que no lo es.
+*              Implementado en ARM64 Assembly para RaspbianOS.
+* 
 * Compilación:
 *    as -o palindrome.o palindrome.s
 *    gcc -o palindrome palindrome.o -no-pie
@@ -16,47 +19,31 @@
 * ----------------------------------------------------
 * #include <stdio.h>
 * #include <ctype.h>
-* int isAlpha(char c) {
-*    /* Verifica si el carácter es alfabético (letra) */
-*    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
-* }
-* char toLower(char c) {
-*    /* Convierte el carácter a minúscula si es mayúscula */
-*    return (c >= 'A' && c <= 'Z') ? c + 32 : c;
-* }
+* 
 * int main() {
-*    char cadena[] = "anita lava la tina";  /* Cadena a verificar */
-*    char *start = cadena;                  /* Puntero al inicio de la cadena */
-*    char *end = cadena;                    /* Puntero al final de la cadena */
-*    /* Encontrar el final de la cadena */
-*    while (*end != '\0') {
-*        end++;
-*    }
-*    end--;  /* Apuntar al último carácter no nulo */
-*    /* Imprimir la frase a analizar */
-*    printf("Frase a analizar: %s\n", cadena);
-*    /* Comprobar si es un palíndromo */
-*    while (start < end) {
-*        /* Saltar caracteres no alfabéticos desde el inicio */
-*        while (*start && !isAlpha(*start)) {
-*            start++;
-*        }
-*        /* Saltar caracteres no alfabéticos desde el final */
-*        while (end >= start && !isAlpha(*end)) {
-*            end--;
-*        }
-*        /* Comparar caracteres (sin distinguir mayúsculas de minúsculas) */
-*        if (toLower(*start) != toLower(*end)) {
-*            printf("No es palíndromo\n");
-*            return 0;
-*        }
-*        /* Avanzar y retroceder los punteros */
-*        start++;
-*        end--;
-*    }
-*    /* Si el bucle termina, es un palíndromo */
-*    printf("Es palíndromo\n");
-*    return 0;
+*     char str[] = "anita lava la tina";
+*     int start = 0, end = strlen(str) - 1;
+*     
+*     printf("Frase a analizar: %s\n", str);
+*     
+*     while (start < end) {
+*         if (!isalpha(str[start])) {
+*             start++;
+*             continue;
+*         }
+*         if (!isalpha(str[end])) {
+*             end--;
+*             continue;
+*         }
+*         if (tolower(str[start]) != tolower(str[end])) {
+*             printf("No es palíndromo\n");
+*             return 0;
+*         }
+*         start++;
+*         end--;
+*     }
+*     printf("Es palíndromo\n");
+*     return 0;
 * }
 *
 * Link de grabación asciinema:
