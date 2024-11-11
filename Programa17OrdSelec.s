@@ -1,56 +1,63 @@
-//===============================================================
-// Nombre del programa: Ordenación por Selección (Selection Sort)
-// Propósito: Ordenar un arreglo utilizando el algoritmo de 
-//            ordenación por selección.
-// Autor: Aaron Casildo Rubalcava
-//===============================================================
-
-//---------------------------------------------------------------
-// Código en C para referencia:
-// 
-// #include <stdio.h>
-// void selection_sort(long arr[], int n);
-// void printf_array(long arr[], int n);
-//
-// int main() {
-//     long array[] = {64, 34, 25, 12, 22, 11, 90, 1};
-//     int n = 8;
-//
-//     printf("Array original:\n");
-//     printf_array(array, n);
-//
-//     selection_sort(array, n);
-//
-//     printf("Array ordenado:\n");
-//     printf_array(array, n);
-//
-//     return 0;
-// }
-//
-// void selection_sort(long arr[], int n) {
-//     int i, j, min_idx;
-//     for (i = 0; i < n - 1; i++) {
-//         min_idx = i;
-//         for (j = i + 1; j < n; j++) {
-//             if (arr[j] < arr[min_idx]) {
-//                 min_idx = j;
-//             }
-//         }
-//         if (min_idx != i) {
-//             long temp = arr[i];
-//             arr[i] = arr[min_idx];
-//             arr[min_idx] = temp;
-//         }
-//     }
-// }
-//
-// void printf_array(long arr[], int n) {
-//     for (int i = 0; i < n; i++) {
-//         printf("%ld ", arr[i]);
-//     }
-//     printf("\n");
-// }
-//---------------------------------------------------------------
+/***********************************************************************
+* Programa: Ordenamiento por Selección en ARM64 Assembly
+* Autor: Aaron Casildo Rubalcava
+* Descripción: Implementa el algoritmo de ordenamiento por selección (Selection Sort)
+*              en un array de números enteros en ARM64 Assembly. El programa 
+*              imprime el array original, luego lo ordena en orden ascendente 
+*              y finalmente imprime el array ordenado.
+*              Implementado en ARM64 Assembly para RaspbianOS.
+* 
+* Compilación:
+*    as -o selection_sort.o selection_sort.s
+*    gcc -o selection_sort selection_sort.o -no-pie
+*
+* Ejecución:
+*    ./selection_sort
+*
+* Traducción a C (para referencia):
+* ----------------------------------------------------
+* #include <stdio.h>
+* 
+* void selection_sort(long arr[], long n) {
+*     long i, j, min_idx, temp;
+*     for (i = 0; i < n-1; i++) {
+*         min_idx = i;
+*         for (j = i+1; j < n; j++) {
+*             if (arr[j] < arr[min_idx]) {
+*                 min_idx = j;
+*             }
+*         }
+*         temp = arr[i];
+*         arr[i] = arr[min_idx];
+*         arr[min_idx] = temp;
+*     }
+* }
+* 
+* int main() {
+*     long arr[] = {64, 34, 25, 12, 22, 11, 90, 1};
+*     long n = 8;
+*     long i;
+*     
+*     printf("Array original: ");
+*     for (i = 0; i < n; i++) {
+*         printf("%ld ", arr[i]);
+*     }
+*     printf("\n");
+*     
+*     selection_sort(arr, n);
+*     
+*     printf("Array ordenado: ");
+*     for (i = 0; i < n; i++) {
+*         printf("%ld ", arr[i]);
+*     }
+*     printf("\n");
+*     
+*     return 0;
+* }
+*
+* Link de grabación asciinema:
+* https://asciinema.org/a/xyH6WMfIRPS4YFxtVUbMVzNYD
+***********************************************************************/
 
 .data
 array:      .quad   64, 34, 25, 12, 22, 11, 90, 1    // Array inicial
