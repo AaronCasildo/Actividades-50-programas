@@ -1,87 +1,99 @@
-// Programa: fibonacci.s
-// Autor: Aaron Casildo Rubalcava
-// Descripción: Genera y muestra los primeros 8 números de la serie de Fibonacci
-// Entrada: Ninguna
-// Salida: Los primeros 8 números de la serie de Fibonacci
-//
-// Implementación equivalente en C++:
-// ```cpp
-// #include <iostream>
-// using namespace std;
-// int main() {
-//     long fib[8] = {0, 1};
-//     cout << "Serie de Fibonacci:" << endl;
-//     cout << fib[0] << " " << fib[1] << " ";
-//     for(int i = 2; i < 8; i++) {
-//         fib[i] = fib[i-1] + fib[i-2];
-//         cout << fib[i] << " ";
-//     }
-//     cout << endl;
-//     return 0;
-// }
-// ```
+/***********************************************************************
+* Programa: Serie de Fibonacci en ARM64 Assembly
+* Autor: Aaron Casildo Rubalcava
+* Descripción: Genera y muestra los primeros 8 números de la serie de Fibonacci.
+*              El programa imprime cada número en la consola.
+*
+* Compilación:
+*    as -o fibonacci.o fibonacci.s
+*    gcc -o fibonacci fibonacci.o -no-pie
+*
+* Ejecución:
+*    ./fibonacci
+*
+* Traducción a C (para referencia):
+* ----------------------------------------------------
+* #include <stdio.h>
+* 
+* int main() {
+*     long fib[8] = {0, 1}; 
+*     for (int i = 2; i < 8; i++) {
+*         fib[i] = fib[i-1] + fib[i-2];
+*     }
+*     
+*     printf("Serie de Fibonacci:\n");
+*     for (int i = 0; i < 8; i++) {
+*         printf("%ld ", fib[i]);
+*     }
+*     printf("\n");
+*     return 0;
+* }
+*
+* Link de grabación asciinema:
+* https://asciinema.org/a/1GWjBgeo62dUNhyft2cwRNA1S
+***********************************************************************/
 
 .data
-    msg_titulo:     .asciz "Serie de Fibonacci:\n"
-    msg_numero:     .asciz "%ld "           // Formato para imprimir cada número
-    msg_newline:    .asciz "\n"             // Salto de línea
-    cantidad:       .quad 8                  // Cantidad de números a generar
+    msg_titulo:     .asciz "Serie de Fibonacci:\n"   // Título de la serie de Fibonacci
+    msg_numero:     .asciz "%ld "                    // Formato para imprimir cada número
+    msg_newline:    .asciz "\n"                      // Salto de línea
+    cantidad:       .quad 8                          // Cantidad de números a generar
 
 .text
 .global main
 main:
     // Prólogo
     stp     x29, x30, [sp, -48]!   // Reservamos espacio para variables locales
-    mov     x29, sp
+    mov     x29, sp                // Establecemos el puntero de marco
 
-    // Imprimir título
-    ldr     x0, =msg_titulo
-    bl      printf
+    // Imprimir título de la serie de Fibonacci
+    ldr     x0, =msg_titulo        // Cargar dirección del título
+    bl      printf                 // Llamada a printf para imprimir el título
 
-    // Inicializar primeros dos números de Fibonacci
-    mov     x19, #0                 // First number (F0)
-    mov     x20, #1                 // Second number (F1)
+    // Inicializar los primeros dos números de Fibonacci
+    mov     x19, #0                // Primer número (F0)
+    mov     x20, #1                // Segundo número (F1)
     
-    // Imprimir primer número (0)
-    ldr     x0, =msg_numero
-    mov     x1, x19
-    bl      printf
+    // Imprimir el primer número (0)
+    ldr     x0, =msg_numero        // Cargar formato para imprimir número
+    mov     x1, x19                // Poner F0 en x1
+    bl      printf                 // Llamada a printf para imprimir F0
 
-    // Imprimir segundo número (1)
-    ldr     x0, =msg_numero
-    mov     x1, x20
-    bl      printf
+    // Imprimir el segundo número (1)
+    ldr     x0, =msg_numero        // Cargar formato para imprimir número
+    mov     x1, x20                // Poner F1 en x1
+    bl      printf                 // Llamada a printf para imprimir F1
 
-    // Inicializar contador
-    mov     x21, #2                 // Empezamos desde el tercer número
-    ldr     x22, =cantidad
-    ldr     x22, [x22]             // Cargar cantidad total (8)
+    // Inicializar el contador para el bucle
+    mov     x21, #2                // Empezamos desde el tercer número
+    ldr     x22, =cantidad         // Cargar la dirección de la cantidad total (8)
+    ldr     x22, [x22]             // Cargar el valor de cantidad (8)
 
 fibonacci_loop:
-    // Verificar si hemos terminado
-    cmp     x21, x22
-    bge     done
+    // Verificar si hemos alcanzado la cantidad deseada
+    cmp     x21, x22               // Comparar contador con la cantidad total
+    bge     done                   // Si el contador es mayor o igual, salimos
 
-    // Calcular siguiente número (F[n] = F[n-1] + F[n-2])
-    mov     x23, x20               // Temporal = F[n-1]
-    add     x20, x19, x20         // F[n-1] = F[n-2] + F[n-1]
-    mov     x19, x23              // F[n-2] = Temporal
+    // Calcular el siguiente número de Fibonacci (F[n] = F[n-1] + F[n-2])
+    mov     x23, x20               // Guardar F[n-1] en un registro temporal
+    add     x20, x19, x20          // F[n-1] = F[n-2] + F[n-1]
+    mov     x19, x23               // F[n-2] = Valor temporal de F[n-1]
 
-    // Imprimir número actual
-    ldr     x0, =msg_numero
-    mov     x1, x20
-    bl      printf
+    // Imprimir el número actual de Fibonacci
+    ldr     x0, =msg_numero        // Cargar formato para imprimir número
+    mov     x1, x20                // Poner el nuevo número de Fibonacci en x1
+    bl      printf                 // Llamada a printf para imprimir el número
 
-    // Incrementar contador
-    add     x21, x21, #1
-    b       fibonacci_loop
+    // Incrementar el contador
+    add     x21, x21, #1           // Incrementar el contador de números generados
+    b       fibonacci_loop         // Volver al inicio del bucle
 
 done:
     // Imprimir salto de línea final
-    ldr     x0, =msg_newline
-    bl      printf
+    ldr     x0, =msg_newline       // Cargar salto de línea
+    bl      printf                 // Llamada a printf para imprimir el salto de línea
 
     // Epílogo y retorno
-    mov     w0, #0                // Código de retorno
-    ldp     x29, x30, [sp], 48
-    ret
+    mov     w0, #0                 // Código de retorno (0)
+    ldp     x29, x30, [sp], 48     // Restaurar el puntero de marco y el registro de enlace
+    ret                            // Retornar al sistema operativo
