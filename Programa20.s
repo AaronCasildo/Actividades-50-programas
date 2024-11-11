@@ -1,57 +1,72 @@
-//===============================================================
-// Programa: Multiplicación de matrices
-// Descripción: Este programa realiza la multiplicación de dos matrices
-// Autor: Aaron Casildo Rubalcava
-//===============================================================
-
-//---------------------------------------------------------------
-// Código en C para referencia:
-// 
-// #include <stdio.h>
-//
-// void multiply_matrices(long matrix1[2][3], long matrix2[3][2], long result[2][2], int rows1, int cols1, int cols2);
-// void print_matrix(long matrix[][2], int rows, int cols);
-//
-// int main() {
-//     long matrix1[2][3] = {{1, 2, 3}, {4, 5, 6}};
-//     long matrix2[3][2] = {{7, 8}, {9, 10}, {11, 12}};
-//     long result[2][2] = {0}; // Inicializar matriz de resultados a cero
-//
-//     int rows1 = 2, cols1 = 3, rows2 = 3, cols2 = 2;
-//
-//     printf("Matriz 1:\n");
-//     print_matrix(matrix1, rows1, cols1);
-//     printf("Matriz 2:\n");
-//     print_matrix(matrix2, rows2, cols2);
-//
-//     multiply_matrices(matrix1, matrix2, result, rows1, cols1, cols2);
-//
-//     printf("Resultado:\n");
-//     print_matrix(result, rows1, cols2);
-//
-//     return 0;
-// }
-//
-// void multiply_matrices(long matrix1[2][3], long matrix2[3][2], long result[2][2], int rows1, int cols1, int cols2) {
-//     for (int i = 0; i < rows1; i++) {
-//         for (int j = 0; j < cols2; j++) {
-//             result[i][j] = 0;
-//             for (int k = 0; k < cols1; k++) {
-//                 result[i][j] += matrix1[i][k] * matrix2[k][j];
-//             }
-//         }
-//     }
-// }
-//
-// void print_matrix(long matrix[][2], int rows, int cols) {
-//     for (int i = 0; i < rows; i++) {
-//         for (int j = 0; j < cols; j++) {
-//             printf("%ld ", matrix[i][j]);
-//         }
-//         printf("\n");
-//     }
-// }
-//---------------------------------------------------------------
+/***********************************************************************
+* Programa: Multiplicación de Matrices en ARM64 Assembly
+* Autor: Aaron Casildo Rubalcava
+* Descripción: Este programa realiza la multiplicación de dos matrices
+*              de tamaño 2x3 y 3x2 utilizando ARM64 Assembly. Imprime
+*              las matrices de entrada, luego efectúa la multiplicación
+*              de las mismas y muestra la matriz resultado (2x2).
+*              Las matrices y los valores de configuración están definidos
+*              de manera estática en la sección de datos.
+*
+* Compilación:
+*    as -o multiplicacion_matrices.o multiplicacion_matrices.s
+*    gcc -o multiplicacion_matrices multiplicacion_matrices.o -no-pie
+*
+* Ejecución:
+*    ./multiplicacion_matrices
+*
+* Explicación de matrices:
+* - matrix1: Matriz de tamaño 2x3
+* - matrix2: Matriz de tamaño 3x2
+* - result: Matriz de tamaño 2x2 para almacenar el resultado de la multiplicación.
+*
+* Traducción en C (para referencia):
+* ----------------------------------------------------
+* #include <stdio.h>
+*
+* void print_matrix(long matrix[], long rows, long cols) {
+*     for (long i = 0; i < rows; i++) {
+*         for (long j = 0; j < cols; j++) {
+*             printf("%ld ", matrix[i * cols + j]);
+*         }
+*         printf("\n");
+*     }
+* }
+*
+* void multiply_matrices(long matrix1[], long matrix2[], long result[], long rows1, long cols1, long rows2, long cols2) {
+*     for (long i = 0; i < rows1; i++) {
+*         for (long j = 0; j < cols2; j++) {
+*             long sum = 0;
+*             for (long k = 0; k < cols1; k++) {
+*                 sum += matrix1[i * cols1 + k] * matrix2[k * cols2 + j];
+*             }
+*             result[i * cols2 + j] = sum;
+*         }
+*     }
+* }
+*
+* int main() {
+*     long matrix1[6] = {1, 2, 3, 4, 5, 6};  // 2x3 matrix
+*     long matrix2[6] = {7, 8, 9, 10, 11, 12};  // 3x2 matrix
+*     long result[4];  // 2x2 result matrix
+*     long rows1 = 2, cols1 = 3, rows2 = 3, cols2 = 2;
+*
+*     printf("Matriz 1:\n");
+*     print_matrix(matrix1, rows1, cols1);
+*     printf("Matriz 2:\n");
+*     print_matrix(matrix2, rows2, cols2);
+*
+*     multiply_matrices(matrix1, matrix2, result, rows1, cols1, rows2, cols2);
+*
+*     printf("Resultado:\n");
+*     print_matrix(result, rows1, cols2);
+*
+*     return 0;
+* }
+*
+* Link de grabación asciinema:
+* https://asciinema.org/a/vz6kW3kpkyV2qMLPRQbSv8zrA
+***********************************************************************/
 
 .data
 // Matrices y valores de configuración
