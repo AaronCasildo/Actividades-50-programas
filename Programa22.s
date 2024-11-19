@@ -50,6 +50,8 @@
 *
 * Link de grabación asciinema:
 * https://asciinema.org/a/Ry3X7x8TXtn6LNDnh8n0lJvJl
+* Link de grabación gdb:
+* https://asciinema.org/a/rIk0eUL9oZgUAgOf1RpWVBOB0
 ***********************************************************************/
 .data
     // Mensajes para interactuar con el usuario
