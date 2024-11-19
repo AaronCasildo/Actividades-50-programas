@@ -34,6 +34,8 @@
 *
 * Link de grabación asciinema:
 * https://asciinema.org/a/hOhwgAOuwaZ3yRUqvkeQSRY0X
+* Link corrida con gdb:
+* https://asciinema.org/a/uidnGhYCDm0KzQ8xdzulyN5WM
 ***********************************************************************/
 
 .data
