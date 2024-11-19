@@ -47,6 +47,8 @@
 *
 * Link de grabación asciinema:
 * https://asciinema.org/a/AHxY2PbYUsb8xRe2bccUjajYo
+* Link de grabación gdb:
+* https://asciinema.org/a/5TmgizQ9HJATg1d6zsgnwocLz
 ***********************************************************************/
 
 .section .rodata
