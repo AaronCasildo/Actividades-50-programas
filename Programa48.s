@@ -77,6 +77,8 @@
 *
 * Link de grabación de asciinema:
 * https://asciinema.org/a/UTp2414NL2ONHJ6HhHq2VuNHp
+* Link de grabación gdb:
+* https://asciinema.org/a/F1RjTKewtYTUV9RcokbdF0jiG
 ***********************************************************************/
 
 .data
